@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Engine</title>
+    <!-- <link rel="stylesheet" href="./styles.css" /> -->
+</head>
+<body>
+    <h1>DSA Search Engine</h1>
+    <h4>A Platform for competitive programming enthusiasts</h4>
+    <form class="search-bar">
+        <input type="search" name="search" pattern=".*\S.*" required>
+        <button class="search-btn" type="submit">
+            <span>Search</span>
+        </button>
+    </form>
+    <div class="loading"></div>
+    <div class="question">
+        <div class="title" href=""></div>
+        <div class="content"></div>
+    </div>
+    <div class="questions">
+        <div class="title"></div>
+        <div class="content"></div>
+    </div>
+    <div class="questions">
+        <div class="title"></div>
+        <div class="content"></div>
+    </div>
+    <div class="questions">
+        <div class="title"></div>
+        <div class="content"></div>
+    </div>
+    <div class="questions">
+        <div class="title"></div>
+        <div class="content"></div>
+    </div>
+
+</body>
+</html>
+
+<script>
+    const form = document.querySelector('form')
+    const questionElement = form.search
+
+    console.log(questionElement.value)
+
+    const allTitles = document.querySelectorAll('.title')
+    const quesContent  = document.querySelectorAll('.content')
+    const loadingText  = document.querySelector('.loading')
+
+    form.addEventListener('submit', async (e) =>{
+        e.preventDefault()
+        const s = questionElement.value
+        loadingText.innerText = "Loading..."
+        for (let i = 0; i < 5; i++) {
+                allTitles[i].innerHTML = ""
+                quesContent[i].innerText =""
+            }
+        try {
+            const res = await fetch(`./search?question=${s}`,{method:'GET'})
+            const data  = await res.json()
+            loadingText.innerText = ""
+            for (let i = 0; i < 5; i++) {
+                allTitles[i].innerHTML = `<a href = "${data[i].url}">${data[i].title}</a>`
+                quesContent[i].innerText = data[i].content
+            }
+        } catch (error) {
+            alert("Try again")
+        }
+    })
+
+</script>
