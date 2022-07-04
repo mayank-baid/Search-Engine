@@ -55,7 +55,7 @@ app.get("/search", async (req,res) =>{
         fs
           .readFileSync(`./DataSet/Problems/${titles[i]}.txt`)
           .toString()
-          .slice(2, 350) + "...";
+          .slice(1, 100) + "....";
     });
     titles.forEach((element, i) => {
       urls[i] = `https://www.codechef.com/problems/${element}`;
@@ -71,10 +71,6 @@ app.get("/search", async (req,res) =>{
     }
     res.json(data)
 })
-
-
 app.listen(3000,() => {
     console.log("Listening....")
 })
-
-

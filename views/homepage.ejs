@@ -5,40 +5,95 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Engine</title>
-    <!-- <link rel="stylesheet" href="./styles.css" /> -->
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 </head>
 <body>
-    <h1>DSA Search Engine</h1>
-    <h4>A Platform for competitive programming enthusiasts</h4>
+    <div class="headings">
+        <h1 style="margin-bottom: 0.5px;">DSA Search Engine</h1>
+        <h4 style="margin-top: 0.5px;">A Platform for competitive programming enthusiasts</h4>
+    </div>
     <form class="search-bar">
-        <input type="search" name="search" pattern=".*\S.*" required>
-        <button class="search-btn" type="submit">
-            <span>Search</span>
-        </button>
+        <div class="wrap">
+            <div class="search">
+               <input class="searchTerm" type="text" name="search" pattern=".*\S.*" required placeholder="What are you looking for?"/>
+               <button type="submit" class="searchButton">
+                 <i class="fa fa-search"></i>
+              </button>
+            </div>
+        </div>
     </form>
     <div class="loading"></div>
-    <div class="question">
-        <div class="title" href=""></div>
-        <div class="content"></div>
-    </div>
-    <div class="questions">
-        <div class="title"></div>
-        <div class="content"></div>
-    </div>
-    <div class="questions">
-        <div class="title"></div>
-        <div class="content"></div>
-    </div>
-    <div class="questions">
-        <div class="title"></div>
-        <div class="content"></div>
-    </div>
-    <div class="questions">
-        <div class="title"></div>
-        <div class="content"></div>
-    </div>
-
+    <section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 offset-md-1">
+					<ul class="ques-list">
+						<li class="ques-preview">
+							<div class="content-float-left">
+								<h4 class="ques-title">Test</h4>
+								<h5 class="company content"></h5>
+                            </div>
+							<a href=""></a>
+						</li>
+						<li class="ques-preview">
+							<div class="content-float-left">
+								<h4 class="ques-title">Test</h4>
+								<h5 class="company content"></h5>
+							</div>
+							<a href=""></a>
+						</li>
+						<li class="ques-preview">
+							<div class="content-float-left">
+								<h4 class="ques-title">
+								Test</h4>
+								<h5 class="company content"></h5>
+							</div>
+							<a href=""></a>
+						</li>
+						<li class="ques-preview">
+							<div class="content-float-left">
+								<h4 class="ques-title">Test</h4>
+								<h5 class="company content"></h5>
+							</div>
+							<a href=""></a>
+						</li>
+						<li class="ques-preview">
+							<div class="content-float-left">
+								<h4 class="ques-title">Test</h4>
+								<h5 class="company content"></h5>
+							</div>
+							<a href=""></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
 </body>
+<!-- <footer class="site-footer">
+    <div class="container">
+    <hr>
+    </div>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-12">
+        <p class="copyright-text">Copyright &copy; 2017 All Rights Reserved by 
+    <a href="#">Scanfcode</a>.
+        </p>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+        <ul class="social-icons">
+            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
+        </ul>
+        </div>
+    </div>
+    </div>
+</footer> -->
 </html>
 
 <script>
@@ -47,25 +102,66 @@
 
     console.log(questionElement.value)
 
-    const allTitles = document.querySelectorAll('.title')
-    const quesContent  = document.querySelectorAll('.content')
+    const allTitles = document.querySelectorAll('.ques-title')
+    const quesContent  = document.querySelectorAll('.company')
     const loadingText  = document.querySelector('.loading')
+    const allLinks = document.querySelectorAll(".ques-preview a")
+
+    const arr = [
+        {
+            title: "The Lead Game - TLG",
+            url : "https://www.codechef.com/problems/TLG",
+            content: "The game of billiards involves two players knocking 3 balls around on a green baize table...."
+        },
+        {
+            title: "Little Elephant and Candies - LECANDY",
+            url : "https://www.codechef.com/problems/LECANDY",
+            content: " Little Elephant and his friends from the Zoo of Lviv like candies very much..."
+
+        },
+        {
+            title: "Football - MSNSADM1",
+            url : "https://www.codechef.com/problems/MSNSADM1",
+            content : "A football competition has just finished. The players have been..."
+        },
+
+        {
+            title:"Kitchen Timetable - KTTABLE",
+            url:'https://www.codechef.com/problems/KTTABLE',
+            content:'There are N students living in the dormitory of Berland State University...'
+        },
+        {
+            title:"That Is My Score! - WATSCORE",
+            url:'https://www.codechef.com/problems/WATSCORE',
+            
+        content:'You are participating in a contest which has 1111 problems (numbered 11 ....'
+        }
+    ]
+
+    for (let i = 0; i < 5; i++) {
+        allTitles[i].innerHTML = `<h4 class="ques-title" >${arr[i].title}</h4>`
+        quesContent[i].innerText = `${arr[i].content}`
+        allLinks[i].innerHTML = `<a href="${arr[i].url}" class="btn btn-apply float-sm-right float-xs-left">Try</a>`
+    }
 
     form.addEventListener('submit', async (e) =>{
         e.preventDefault()
         const s = questionElement.value
         loadingText.innerText = "Loading..."
+
         for (let i = 0; i < 5; i++) {
-                allTitles[i].innerHTML = ""
+                allTitles[i].innerText = ""
                 quesContent[i].innerText =""
-            }
+                allLinks[i].innerHTML = ""
+        }
         try {
             const res = await fetch(`./search?question=${s}`,{method:'GET'})
             const data  = await res.json()
             loadingText.innerText = ""
             for (let i = 0; i < 5; i++) {
-                allTitles[i].innerHTML = `<a href = "${data[i].url}">${data[i].title}</a>`
+                allTitles[i].innerHTML = `<h4 class="ques-title">${data[i].title}</h4>`
                 quesContent[i].innerText = data[i].content
+                allLinks[i].innerHTML = `<a href="${arr[i].url}" class="btn btn-apply float-sm-right float-xs-left">Try</a>`
             }
         } catch (error) {
             alert("Try again")
