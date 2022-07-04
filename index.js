@@ -31,45 +31,50 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 app.get("/",(req,res) =>{
     res.render("homepage")
+    res.end()
 })
 
 app.get("/search", async (req,res) =>{
-    const queryString = req.query.question
-    let search_result = await tf_idf.rankDocumentsByQuery(queryString);
-    search_result = search_result.slice(0, 5);
+    try{
+      const queryString = req.query.question
+      let search_result = await tf_idf.rankDocumentsByQuery(queryString);
+      search_result = search_result.slice(0, 5);
 
-    let questionsFound = [];
-    let urls = [];
-    let titles = [];
-    let contents = [];
+      let questionsFound = [];
+      let urls = [];
+      let titles = [];
+      let contents = [];
 
-    search_result.forEach((element, i) => {
-        // console.log(element)
-        questionsFound[i] = fileNames[element.index];
-    });
+      search_result.forEach((element, i) => {
+          // console.log(element)
+          questionsFound[i] = fileNames[element.index];
+      });
 
-    questionsFound.forEach((element, i) => {
-      titles[i] = element.substring(element.lastIndexOf("/") + 1);
-      titles[i] = titles[i].slice(0, -4);
-      contents[i] =
-        fs
-          .readFileSync(`./DataSet/Problems/${titles[i]}.txt`)
-          .toString()
-          .slice(1, 100) + "....";
-    });
-    titles.forEach((element, i) => {
-      urls[i] = `https://www.codechef.com/problems/${element}`;
-    });
+      questionsFound.forEach((element, i) => {
+        titles[i] = element.substring(element.lastIndexOf("/") + 1);
+        titles[i] = titles[i].slice(0, -4);
+        contents[i] =
+          fs
+            .readFileSync(`./DataSet/Problems/${titles[i]}.txt`)
+            .toString()
+            .slice(1, 100) + "....";
+      });
+      titles.forEach((element, i) => {
+        urls[i] = `https://www.codechef.com/problems/${element}`;
+      });
 
-    let data = [{}]
-    for (let i = 0; i < questionsFound.length; i++) {
-      data[i] = {
-        title : titles[i],
-        url : urls[i],
-        content : contents[i]
+      let data = [{}]
+      for (let i = 0; i < questionsFound.length; i++) {
+        data[i] = {
+          title : titles[i],
+          url : urls[i],
+          content : contents[i]
+        }
       }
+      res.json(data)
+    }catch(err){
+      res.send(err)
     }
-    res.json(data)
 })
 app.listen(3000,() => {
     console.log("Listening....")
